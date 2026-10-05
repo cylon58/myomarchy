@@ -13,7 +13,10 @@ agent to uninstall a plugin.
   `omarchy plugin add` and copied plugin directories. `myomarchy dashboard` also
   reconciles inventory; **Refresh history** imports journal and package activity too.
   Records disappearance, updates and return. Discovered plugins show
-  “Install date unknown.” Removed plugins remain in history.
+  a recovered date for every plugin: verified installation, estimated installation
+  corroborated by clone/location creation, location creation, or first known
+  presence. Removed plugins remain in history. Known earlier evidence is preserved
+  across updates, re-clones and missing filesystem timestamps.
 - Links installed GitHub plugins to their repositories. Check one or all plugins
   for remote changes, update one or all, or ask the default agent whether an update
   is worthwhile. Advice is read-only. Checks are explicit and show their check time;
@@ -49,6 +52,30 @@ to replace unrelated files. Codex, OpenCode and Gemini use `~/.agents/skills`;
 Claude uses `~/.claude/skills`. Start a new agent conversation after installation.
 Other agents can still be launched through Omarchy; automatic skill setup for
 them is not claimed. Select a supported agent before installing the skill.
+
+## Dates and window sizes
+
+Every discovered plugin gets the strongest available local date evidence:
+**Installed** for a verified managed installation, **Installed ≈** when a local clone
+log agrees with creation of the plugin location within ten minutes, **Location
+created** from filesystem birth time, or **Present by** from the first inventory
+record. Details show the evidence source. An update or fresh replacement checkout
+does not replace an earlier original observation with a newer installation date.
+Copied directories and changed clocks can limit certainty; modification times and
+upstream commit dates are not used as installation dates.
+
+The native window supports short and narrow Omarchy tiles. At 900 pixels or wider,
+list and details appear beside each other. Narrower windows show one pane with
+**Back** navigation; below 600 pixels, a category selector replaces the tabs. The
+list header and entire details pane scroll, including update and agent actions.
+**More** contains configuration comparison, recovery settings and snapshots. Recovery
+settings also fit and scroll in small windows. Escape closes a dialog first, then
+returns from narrow details, then closes the window. Record lists support arrows
+and Enter; keyboard focus is visible.
+
+The header shows the actual UI version. If an older interface remains after an
+update, run `omarchy restart shell`, then reopen My Omarchy; a plugin rescan alone
+may retain the older QML component in the running shell.
 
 ## Plugin updates
 

@@ -139,6 +139,18 @@ class Store:
                 rid = self.add(value.get('name', pid), 'plugins', date_kind='unknown',
                     status='present', origin='discovered', details=details, identity=identity)
                 old = self.get(rid)
+                if old['date_kind'] in {'unknown', 'first-seen', 'location-created'}:
+                    from .install_dates import evidence
+                    first_seen = next(e['at'] for e in old['events'] if e['kind'] == 'created')
+                    recovered = evidence(path.parent, first_seen)
+                    ranks = {'unknown': 0, 'first-seen': 1, 'location-created': 2, 'inferred-install': 3}
+                    improves = ranks[recovered['date_kind']] > ranks[old['date_kind']]
+                    if old['date_kind'] == 'location-created' and old['date'] and recovered['date'] > old['date']:
+                        improves = False
+                    if improves:
+                        self.event(rid, 'installation-evidence', recovered)
+                        with self.db:
+                            self.db.execute('UPDATE records SET date=?,date_kind=? WHERE id=?', (recovered['date'], recovered['date_kind'], rid))
                 if old['status'] != 'present' or old['details'] != details:
                     self.event(rid, 'inventory', {'previous': old['details'], 'observed': details}, 'present')
                 with self.db:

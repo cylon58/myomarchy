@@ -2,7 +2,7 @@
 
 ## Automated checks, 2026-10-05
 
-- 33 Python tests pass. Coverage includes manual plugin discovery through the
+- 39 Python tests pass. Coverage includes manual plugin discovery through the
   dashboard, repository links, remote checks and failed checks, guarded updates,
   detached launch, stopped workers, process-group timeouts, partial batch outcomes,
   self-update ordering, removal and reinstallation without duplicate records or invented
@@ -11,13 +11,22 @@
 - Native Quickshell offscreen checks exercise filtering, details, agent dispatch,
   visible failures, and reopening while the helper is busy. The pending refresh
   completes rather than being dropped. Screenshots use synthetic records only.
+- Responsive UI checks pass at 1120×740, 1005×544, 800×600, 600×400,
+  420×360 and 360×300 logical pixels. They verify scrollable whole-detail content,
+  narrow Back navigation, new-selection scroll reset, empty-result placement and
+  recovery dialog bounds. QtTest wheel events over text and buttons scroll the
+  whole pane; arrow/Enter/Escape input exercises narrow keyboard navigation.
+- Installation-evidence tests cover clone corroboration, copied old repositories,
+  re-clones after first observation, missing/malformed evidence, and preservation
+  of stronger recorded or verified dates.
 - `omarchy plugin validate .` passes.
 - Offscreen rendering reports unsupported window masks; the checks still pass.
 
 ## Local evidence
 
 - A manually installed Omapaste plugin is observed as present by the installed
-  helper, with its installation date left unknown.
+  helper. Clone logs and filesystem creation evidence recover dates across the
+  installed inventory, with source and certainty preserved.
 - Root and home Snapper coverage is configured. An earlier local recovery trial
   created real snapshots for both areas, recovered a disposable file from a home
   snapshot, and verified a root snapshot was readable.

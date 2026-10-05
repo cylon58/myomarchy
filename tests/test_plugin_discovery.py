@@ -36,7 +36,7 @@ class ManualPluginTests(unittest.TestCase):
                 manifest.write_text(json.dumps({'id': 'manual', 'name': 'Manual', 'version': '1'}))
                 row = dashboard()[0]
                 self.assertEqual(row['status'], 'present')
-                self.assertIsNone(row['date'])
+                self.assertIn(row['date_kind'], {'location-created', 'first-seen'})
                 manifest.write_text(json.dumps({'id': 'manual', 'name': 'Manual', 'version': '2'}))
                 self.assertEqual(dashboard()[0]['id'], row['id'])
                 manifest.unlink(); plugin.rmdir()

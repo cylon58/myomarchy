@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.cylon58.myomarchy",
   "name": "My Omarchy",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "cylon58",
   "license": "MIT",
   "description": "A private history of agent-assisted changes, with Snapper recovery points and agent-guided investigation",

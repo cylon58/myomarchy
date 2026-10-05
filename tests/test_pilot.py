@@ -37,7 +37,7 @@ class PilotTests(unittest.TestCase):
         manifest.write_text(json.dumps(dict(id='test', name='Trial', version='1')))
         self.store.inventory(plugins)
         row = self.store.list()[0]
-        self.assertIsNone(row['date'])
+        self.assertEqual(row['date_kind'], 'location-created')
         self.assertEqual(row['status'],'present')
         manifest.write_text('broken')
         self.store.inventory(plugins)
