@@ -35,3 +35,12 @@
   exercise the real UI component; they are not a live desktop interaction test.
 - Personal history, journals and machine snapshot receipts stay outside this
   repository and are excluded from publication.
+
+## Installed release verification
+
+- The protected detached worker successfully updated My Omarchy from the prior
+  public revision, recording root/home snapshots and before/after revisions.
+- A stock Omarchy shell restart replaced the stale cached interface. The visible
+  installed window reports 0.3.0 and fits the previously failing 1005×544 tile.
+- Inventory dates are recovered for every installed plugin, with estimates,
+  location creation and first observation clearly distinguished.

@@ -70,9 +70,13 @@ Item {
         && (!root.searchQuery || r.title.toLowerCase().indexOf(root.searchQuery.toLowerCase()) >= 0)
     })
   }
-  function dateLabel(r) {
+  function dateLabel(r, compact) {
     if (!r.date) return "Date evidence unavailable"
-    var date = r.date.indexOf("T") >= 0 ? new Date(r.date).toLocaleString() : r.date
+    var date = r.date
+    if (r.date.indexOf("T") >= 0) {
+      var moment = new Date(r.date)
+      date = compact ? moment.getFullYear() + "-" + ("0" + (moment.getMonth()+1)).slice(-2) + "-" + ("0" + moment.getDate()).slice(-2) : moment.toLocaleString()
+    }
     if (r.date_kind === "inferred-install") return "Installed ≈ " + date
     if (r.date_kind === "location-created") return "Location created " + date
     if (r.date_kind === "first-seen") return "Present by " + date
@@ -271,7 +275,7 @@ Item {
             Column {
               id: rowBody; anchors.left: parent.left; anchors.right: parent.right; anchors.top: parent.top; anchors.margins: 10; spacing: 5
               Copy { width: parent.width; text: row.modelData.title; font.bold: true }
-              Copy { width: parent.width; text: root.dateLabel(row.modelData) + " · " + row.modelData.status; font.pixelSize: 11; opacity: .7 }
+              Copy { width: parent.width; text: root.dateLabel(row.modelData, true) + " · " + row.modelData.status; font.pixelSize: 11; opacity: .7 }
               Copy { width: parent.width; visible: row.modelData.category === "plugins"; text: row.modelData.update_status || "Not checked"; font.pixelSize: 11 }
             }
             MouseArea { anchors.fill: parent; enabled: !root.working; onClicked: { list.currentIndex = row.index; root.selectRecord(row.modelData.id) } }
